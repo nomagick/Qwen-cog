@@ -1,0 +1,32 @@
+# Configuration for Cog ⚙️
+# Reference: https://github.com/replicate/cog/blob/main/docs/yaml.md
+
+build:
+  # set to true if your model requires a GPU
+  gpu: true
+  cuda: "11.7.1"
+
+  # a list of ubuntu apt packages to install
+  # system_packages:
+    # - "libgl1-mesa-glx"
+    # - "libglib2.0-0"
+
+  # python version in the form '3.8' or '3.8.12'
+  python_version: "3.8"
+
+  # a list of packages in the format <package-name>==<version>
+  python_packages:
+    - "accelerate"
+    - "transformers==4.32.0"
+    - "tiktoken"
+    - "torch===2.0.1"
+    - "einops"
+    - "transformers_stream_generator===0.0.4"
+    - "scipy"
+  
+  # commands run after the environment is setup
+  run:
+    - MAX_JOBS=12 git clone https://github.com/Dao-AILab/flash-attention.git && cd flash-attention && pip install . && cd csrc/layer_norm && pip install . && cd / && rm -rf flash-attention
+
+# predict.py defines how predictions are run on your model
+predict: "predict.py:Predictor"
