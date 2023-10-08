@@ -77,7 +77,8 @@ def chat_stream_raw(
         if (last_response and last_response[-1] != '�'):
             chunk = last_response[offset:]
             offset = len(last_response)
-            yield chunk
+            if chunk:
+                yield chunk
 
 
 def patch(model):
