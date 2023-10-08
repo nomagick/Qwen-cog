@@ -127,5 +127,8 @@ def load_model_on_gpus(model_name_or_path, num_gpus: int = 2):
         # model = dispatch_model(model, device_map=device_map)
     else:
         raise KeyError
+    
+    model.generation_config = GenerationConfig.from_pretrained(model_name_or_path, trust_remote_code=True)
+
 
     return model
