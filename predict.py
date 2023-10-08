@@ -37,5 +37,9 @@ You are a helpful assistant<|im_end|>
         """Run a single prediction on the model"""
         
         yield from self.model.chat_stream_raw(
-            self.tokenizer, prompt, max_new_tokens=max_tokens, temperature=temperature, top_p=top_p
+            self.tokenizer, prompt, 
+            max_new_tokens=max_tokens, 
+            temperature=temperature, 
+            top_p=top_p,
+            max_window_size=32768
         )
