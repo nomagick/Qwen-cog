@@ -110,17 +110,17 @@ def _device_map(num_gpus, num_layers):
     return device_map
 
 
-def load_model_on_gpus(model_name_or_path, num_gpus: int = 2):
+def load_model_on_gpus(model_name_or_path):
     num_devices = torch.cuda.device_count()
     bf16_supported = torch.cuda.is_bf16_supported()
 
-    if num_gpus == 1:
+    if num_devices <= 1:
         model = AutoModelForCausalLM.from_pretrained(model_name_or_path, device_map='auto',
                                                      use_flash_attn=bf16_supported,
                                                      trust_remote_code=True)
         model = patch(model).eval()
-    elif 1 < num_gpus <= num_devices:
-        device_map = _device_map(num_gpus, 40 if '14B' in model_name_or_path else 32)
+    elif num_devices:
+        device_map = _device_map(num_devices, 40 if '14B' in model_name_or_path else 32)
         model = AutoModelForCausalLM.from_pretrained(model_name_or_path, device_map=device_map,
                                                      use_flash_attn=bf16_supported,
                                                      trust_remote_code=True)

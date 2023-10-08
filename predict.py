@@ -29,7 +29,7 @@ You are a helpful assistant<|im_end|>
 ''',
         ),
         max_tokens: int = Input(
-            description="Max new tokens to generate", default=2048, ge=1, le=32768
+            description="Max new tokens to generate", default=2048, ge=1, le=8192
         ),
         temperature: float = Input(description="Temperature", default=0.75, ge=0, le=5),
         top_p: float = Input(description="Top_p", default=0.8, ge=0, le=1),
@@ -41,5 +41,5 @@ You are a helpful assistant<|im_end|>
             max_new_tokens=max_tokens, 
             temperature=temperature, 
             top_p=top_p,
-            max_window_size=32768
+            max_window_size=8192
         )
