@@ -129,6 +129,8 @@ def load_model_on_gpus(model_name_or_path):
         model = AutoModelForCausalLM.from_pretrained(
             model_name_or_path,
             use_flash_attn=bf16_supported,
+            bf16=bf16_supported,
+            fp16=not bf16_supported,
             trust_remote_code=True,
             local_files_only=True,
         )
@@ -139,6 +141,8 @@ def load_model_on_gpus(model_name_or_path):
             model_name_or_path,
             device_map=device_map,
             use_flash_attn=bf16_supported,
+            bf16=bf16_supported,
+            fp16=not bf16_supported,
             trust_remote_code=True,
             local_files_only=True,
         )
