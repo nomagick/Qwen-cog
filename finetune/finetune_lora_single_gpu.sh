@@ -23,7 +23,7 @@ python finetune.py \
   --save_strategy "steps" \
   --save_steps 1000 \
   --save_total_limit 10 \
-  --learning_rate 1e-5 \
+  --learning_rate 3e-4 \
   --weight_decay 0.1 \
   --adam_beta2 0.95 \
   --warmup_ratio 0.01 \
@@ -34,3 +34,6 @@ python finetune.py \
   --lazy_preprocess True \
   --gradient_checkpointing \
   --use_lora
+
+# If you use fp16 instead of bf16, you should use deepspeed
+# --fp16 True --deepspeed finetune/ds_config_zero2.json
